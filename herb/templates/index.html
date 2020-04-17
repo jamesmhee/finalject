@@ -40,12 +40,13 @@
       {% if productnum.quanlity > 0 %}
      <div class="col-sm">
     <div class="card" style="width: 18rem;">
-      {% comment %} <img class="card-img-top" src="{{ imagenum.picture.url }}" alt="Card image cap" width="277" height="180"> {% endcomment %}
+      <img class="card-img-top" src="{{ productnum.picture.url }}" alt="Card image cap" width="277" height="180">
         <div class="card-body">
     <p class="card-text"><strong>{{ productnum.name }}</strong></p>
+    <p class="card-text"><strong>{{ productnum.price }}</strong></p>
     <p class="card-text">{{ productnum.quanlity }} จำนวนสินค้า &nbsp;&nbsp;
     {% comment %} <a href="{% url 'pollvote' poll_id=pollnum.id %}">  {% endcomment %}
-    <button type="button" class="btn btn-outline-primary">Vote</button></p><a/>
+    <button type="button" class="btn btn-outline-primary">ซื้อสินค้า</button></p><a/>
     
   </div>
   </div>

@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from herb import views
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.my_homepage, name='myhomepage'),
@@ -25,5 +29,10 @@ urlpatterns = [
     path('register/', views.my_register, name='register'),
     path('changepassword/', views.change_mypassword, name='changepassword'),
     path('createproduct/', views.create_product, name='createproduct'),
+    path('editprofile/<int:pro_id>', views.edit_profile, name='editprofile'),
 
 ]
+
+# urlpatterns += staticfiles_urlpatterns
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

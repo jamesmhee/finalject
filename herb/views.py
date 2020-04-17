@@ -14,6 +14,8 @@ from django.contrib.messages.api import success
 from django.shortcuts import redirect, render
 from django.template.context_processors import request
 from pkg_resources import require
+from isort.utils import difference
+from astroid import objects
 
 from .forms import AddproductForm, CreateUserForm
 from .models import Image, Order_Product, Payment, Product, Promotion
@@ -98,13 +100,13 @@ def change_mypassword(request):
     return render(request, 'changepassword.html', context)
     
 @login_required
-
 def create_product(request):
     if request.method == 'POST':
         form = AddproductForm(request.POST, request.FILES)
         if form.is_valid():
             newdoc = Product(name = request.POST['name'], quanlity = request.POST['quanlity'],
-            price = request.POST['price'], picture = request.FILES['picture'])
+            price = request.POST['price'],
+            picture = request.FILES['picture'])
             newdoc.save()
         # if request.POST.get('name') and request.POST.get('quanlity') and request.POST.get('price') and request.FILES.get('picture'):
         #     product=Product()
@@ -116,4 +118,8 @@ def create_product(request):
             return redirect('index')
     else:
         form = AddproductForm()
-    return render(request, "createproduct.html")
+    return render(request, "createproduct.html", {'form':form})
+
+def edit_profile(request):
+    context = {}
+    return render(request, 'editprofile.html', context)
