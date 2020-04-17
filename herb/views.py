@@ -20,7 +20,7 @@ from pkg_resources import require
 from isort.utils import difference
 
 from .forms import AddproductForm, CreateUserForm
-from .models import Image, Order_Product, Payment, Product, Promotion
+from .models import User, Image, Order_Product, Payment, Product, Promotion
 
 
 # Create your views here.
@@ -128,13 +128,14 @@ def create_product(request):
 def edit_profile(request, pro_id):
     context = {}
     my_doc = User.objects.get(id=pro_id)
-    userappinfo = User.objects.all()
+    doc = User.objects.all()
     if request.method == 'POST':
-        userappinfo.email = request.POST['email']
-        userappinfo.first_name = request.POST['first_name']
-        userappinfo.last_name = request.POST['last_name']
-        userappinfo.save()
-    context['userappinfo'] = userappinfo
+        doc.email = request.POST['email']
+        doc.first_name = request.POST['first_name']
+        doc.last_name = request.POST['last_name']
+        doc.save()
+    context['doc'] = doc
+    context['my_doc'] = my_doc
     return render(request, 'editprofile.html', context=context)
 
 
