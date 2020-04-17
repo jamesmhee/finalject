@@ -23,6 +23,7 @@ from .forms import AddproductForm, CreateUserForm
 from .models import Image, Order_Product, Payment, Product, Promotion
 from .models import User as U
 
+
 # Create your views here.
 def my_homepage(request):
     return redirect('index')
@@ -142,4 +143,14 @@ def look_product(request, pro_id):
     context = {'producttotal': producttotal}
     return render(request, 'product.html', context)
 
+def my_cart(request, pro_id):
+    context = {}
+    cart = []
+    productinfo = Product.objects.get(pk=pro_id)
 
+    if request.method == 'POST':
+        return redirect('mycart')
+
+        
+    context['productinfo'] = productinfo
+    return render(request, 'mycart.html', context)
