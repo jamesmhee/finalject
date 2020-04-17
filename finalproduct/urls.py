@@ -30,6 +30,7 @@ urlpatterns = [
     path('changepassword/', views.change_mypassword, name='changepassword'),
     path('createproduct/', views.create_product, name='createproduct'),
     path('editprofile/<int:pro_id>', views.edit_profile, name='editprofile'),
+    path('product/<int:pro_id>', views.look_product, name='product'),
 
 ]
 

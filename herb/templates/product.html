@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">   
+        {% comment %} {% for productlist in producttotal %} {% endcomment %}
+            <div >ชื่อสินค้า:{{ producttotal.name }}</div>
+
+             <img class="card-img-top" src="{{ producttotal.picture.url }}">
+
+            <div>จำนวน:{{ producttotal.quanlity }}</div>
+            
+            <div>ราคา:{{ producttotal.price }}</div>
+        {% comment %} {% endfor %} {% endcomment %}
+
+    </div>
+{% endblock content %}

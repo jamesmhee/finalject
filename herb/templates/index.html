@@ -9,34 +9,18 @@
                 <input type="text" class="form-control ml-3" name="searchbox" placeholder="ค้นหาบทความที่ต้องการ" value="{{searchbox}}">
             </div>
             <button type="submit" class="btn btn-info ml-3">ค้นหา</button>             
-        </form>
-        <br/>
-        <hr>
-    </div>
-        {% for message in messages %}
-            <div class="alert alert-success h3 text-center">{{message}}</div>
-        {% endfor %}     
-        <div class="container">
-            <div class="row">           
-            {% for post in posts %} 
-                <div class="mx-auto col p-2" data-aos="fade-right">
-                    <div class="card" style="width: 16.3rem; height:22em;">  
-                        <div class="card-body">                
-                            <h5 class="card-head text-left" style="display: block;/* or inline-block */
-                            text-overflow: ellipsis; word-wrap: break-word; overflow: hidden;  
-                            max-height: 5em; line-height: 1.8em;">✎ {{ product.name }} </h5>
-                        </div>                     
-                    </div>
-                </div>
-            {% endfor %}                                  
+        </form>                               
             </div>                
         </div>       
         <br>
-
+    <div class="container">
+  <div class="row">
+        <a class="nav-link" href="{% url 'editprofile' pro_id=userapp %}">MyProfile</a>
+      </div>
+      </div>
     <div class="container">
   <div class="row">
     {% for productnum in product_all %}
-    {% comment %} {% for imagenum in image_all %} {% endcomment %}
       {% if productnum.quanlity > 0 %}
      <div class="col-sm">
     <div class="card" style="width: 18rem;">
@@ -45,7 +29,7 @@
     <p class="card-text"><strong>{{ productnum.name }}</strong></p>
     <p class="card-text"><strong>{{ productnum.price }}</strong></p>
     <p class="card-text">{{ productnum.quanlity }} จำนวนสินค้า &nbsp;&nbsp;
-    {% comment %} <a href="{% url 'pollvote' poll_id=pollnum.id %}">  {% endcomment %}
+    <a href="{% url 'product' pro_id=productnum.id %}">ดูรายละเอียดสินค้า</a>
     <button type="button" class="btn btn-outline-primary">ซื้อสินค้า</button></p><a/>
     
   </div>
