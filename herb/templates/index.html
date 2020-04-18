@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-        
+      
     <div class="container-fluid">
         <form class="form-inline form-control-lg justify-content-center" method="GET" action="{% url 'index' %}">
         {% csrf_token %}
@@ -24,6 +24,8 @@
     <div class="container">
     <br>
   <div class="row">
+  <form class="form-inline form-control-lg justify-content-center" method="POST" action="">
+        {% csrf_token %}
     {% for productnum in product_all %}
       {% if productnum.quanlity > 0 %}
      <div class="col-sm">
@@ -34,15 +36,13 @@
     <p class="card-text"><strong>{{ productnum.price }}</strong></p>
     <p class="card-text">{{ productnum.quanlity }} จำนวนสินค้า &nbsp;&nbsp;
     <a href="{% url 'product' pro_id=productnum.id %}">ดูรายละเอียดสินค้า</a>
-    <form class="form-inline form-control-lg justify-content-center" method="POST" action="{% url 'index' %}">
-        {% csrf_token %}
         <a class="btn btn-outline-primary" href="{% url 'mycart' pro_id=userapp %}">ซื้อสินค้า</a>
     {% comment %} <button type="submit" class="btn btn-outline-primary" href="{% url 'mycart' pro_id=userapp %}" >ซื้อสินค้า</button></p><a/> {% endcomment %}
-    </form>
   </div>
   </div>
   </div>
     {% endif %}
+    </form>
     {% comment %} {% endfor %} {% endcomment %}
   {% endfor %}
    </div>

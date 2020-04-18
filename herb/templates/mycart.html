@@ -4,21 +4,23 @@
 {% block content %}
 
     Cart
-    <form method="POST" action="">
     <div class="container">
     <div class="row">
+
+    {% for productnum in productinfo %}
     <div class="card" style="width: 15rem;">
-        <div >ชื่อสินค้า:{{ productinfo.name }}</div>
+        <div >ชื่อสินค้า:{{ product_all.name }}</div>
 
-        <img class="card-img-top" src="{{ productinfo.picture.url }}" width="100" height="180">
+        <img class="card-img-top" src="{{ product_all.picture.url }}" width="100" height="180">
 
-        <div>จำนวน:{{ productinfo.quanlity }}</div>
+        <div>จำนวน:{{ product_all.quanlity }}</div>
             
-        <div>ราคา:{{ productinfo.price }}</div>
-        <form method="POST" action="">
-        <button class="btn btn-outline-primary" type="button" >Delete</button>
+        <div>ราคา:{{ product_all.price }}</div>
+        <form method="GET" action="">
+        <button class="btn btn-outline-primary" type="submit" >Delete</button>
         </form>
      </div>
+     {% endfor %}
     </div>
     </div>
 {% endblock content %}

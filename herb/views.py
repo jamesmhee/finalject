@@ -4,6 +4,7 @@ from logging import warning
 from os.path import supports_unicode_filenames
 from tokenize import group
 from urllib.request import Request
+from venv import create
 
 from astroid import objects
 from django.contrib import messages
@@ -13,14 +14,15 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.messages.api import success
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.context_processors import request
 from pkg_resources import require
 
 from isort.utils import difference
 
-from .forms import AddproductForm, CreateUserForm
-from .models import Image, Order_Product, Payment, Product, Promotion
+from .forms import AdditemForm, AddproductForm, CreateUserForm
+from .models import (Image, Order_Item, Order_Product, Payment, Product,
+                     Promotion)
 from .models import User as U
 
 
@@ -146,11 +148,30 @@ def look_product(request, pro_id):
 def my_cart(request, pro_id):
     context = {}
     cart = []
-    productinfo = Product.objects.get(pk=pro_id)
-
-    if request.method == 'POST':
-        return redirect('mycart')
-
+    productinfo = Product.objects.all()
+    # if request.method == 'POST':
+    #     form = AdditemForm(request.POST)
+    #     if form.is_valid():
+    #         newcart = Order_Item(quanlity = request.POST['quanlity'], buy_by_user = User.objects.get(username=request.user.username))
+    #         newcart.save()
+    #     return redirect('mycart')
         
     context['productinfo'] = productinfo
+    # context['productall'] = productall
     return render(request, 'mycart.html', context)
+
+def del_product(request, pro_id):
+    context = {}
+    order_item = Product.objects.get(pk=pro_id)
+    if request.method == 'GET':
+        order_item = Product.objects.get(pk=pro_id)
+        order_item.delete()
+        return redirect('mycart')
+
+    context['order_item'] = order_item
+    return render(request, 'mycart.html', context)
+
+def add_to_cart(request, slug):
+    item = get_object_or_404(Product, slug=slug)
+    order_item = Order_Product_objects.create(item=item)
+    order = Order_Product

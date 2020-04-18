@@ -1,11 +1,19 @@
 from django.db import models
+from django.conf import settings
 from setuptools.command.upload import upload
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as U
 
+PAYMENT_STATUS = {
+        ('AR' ,'Arrived'),
+        ('NA' ,'Not_Arrived')
+    }
 
-
+END_PROMOTION = {
+        ('S', 'SALE'),
+        ('NS', 'NOTSALE')
+    }
 # Create your models here.
 class User(models.Model):
    username = models.CharField(max_length=255)
@@ -20,30 +28,24 @@ def __str__(self):
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    quanlity = models.IntegerField()
+    quanlity = models.IntegerField(default=1)
     price = models.FloatField()
     picture = models.FileField(upload_to='documents/%Y/%m/%d')
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name
-    
+
 
 class Promotion(models.Model):
     name = models.CharField(max_length=255)
     discount = models.IntegerField()
-    end_promotion = {
-        ('S', 'SALE'),
-        ('NS', 'NOTSALE')
-    }
-
+    end_promotion = models.CharField(choices=END_PROMOTION, max_length=2)
 class Order(models.Model):
     date = models.DateField(null=True, blank=True)
     delevery_location = models.TextField(blank=True)
     total_price = models.FloatField()
-    payment_status = {
-        ('AR' ,'Arrived'),
-        ('NA' ,'Not_Arrived')
-    }
+    payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=2)
     user_id = models.ForeignKey(U, on_delete=models.CASCADE)
     promotion_id = models.ForeignKey(Promotion, on_delete=models.CASCADE)
 
@@ -61,3 +63,21 @@ class Order_Product(models.Model):
 class Image(models.Model):
     image = models.FileField(upload_to='documents/%Y/%m/%d')
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+class Order_Item(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quanlity = models.IntegerField(default=1)
+    ordered = models.BooleanField(default=False)
+    buy_by_user = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return f"{self.quantity} of {self.item.name}"
+
+    def get_total_item_price(self):
+        return self.quantity * self.item.price
+
+
+    
+    
