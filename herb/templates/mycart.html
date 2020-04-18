@@ -4,7 +4,7 @@
 {% block content %}
 
     Cart
-
+    <form method="POST" action="">
     <div class="container">
     <div class="row">
     <div class="card" style="width: 15rem;">
@@ -15,6 +15,9 @@
         <div>จำนวน:{{ productinfo.quanlity }}</div>
             
         <div>ราคา:{{ productinfo.price }}</div>
+        <form method="POST" action="">
+        <button class="btn btn-outline-primary" type="button" >Delete</button>
+        </form>
      </div>
     </div>
     </div>
