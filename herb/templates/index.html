@@ -16,8 +16,8 @@
     <div class="container">
   <div class="row">
     {% if user.is_authenticated %}
-        {% comment %} <a class="btn btn-warning" href="{% url 'editprofile' pro_id=userapp %}">MyProfile</a>
-        <a class="btn btn-warning" href="{% url 'mycart' productnum.id %}">My Cart</a> {% endcomment %}
+        <a class="btn btn-warning" href="{% url 'editprofile' pro_id=userapp %}">MyProfile</a>
+        {% comment %} <a class="btn btn-warning" href="{% url 'mycart' productnum.id %}">My Cart</a> {% endcomment %}
       {% endif %}
       </div>
       </div>

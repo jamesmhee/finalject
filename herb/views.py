@@ -109,7 +109,7 @@ def change_mypassword(request):
     return render(request, 'changepassword.html', context)
     
 @login_required
-# @permission_required()
+@permission_required('product.add_product')
 def create_product(request):
     if request.method == 'POST':
         form = AddproductForm(request.POST, request.FILES)
@@ -199,3 +199,8 @@ def del_product(request, pro_id):
 #         order.items.add(order_item)
 #         messages.info(request, "Item was added to your cart.")
 #     return render(request, 'mycart.html')
+
+def buy_item(request, pro_id):
+    context = {}
+
+    return render(request, 'order.html', context)
