@@ -1,4 +1,5 @@
 from builtins import object
+from fnmatch import filter
 from http.client import HTTPResponse
 from logging import warning
 from os.path import supports_unicode_filenames
@@ -15,6 +16,7 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.messages.api import success
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.template.context_processors import request
 from pkg_resources import require
 
@@ -145,7 +147,7 @@ def look_product(request, pro_id):
     context = {'producttotal': producttotal}
     return render(request, 'product.html', context)
 
-def my_cart(request, pro_id):
+def my_cart(request):
     context = {}
     cart = []
     productinfo = Product.objects.all()
@@ -171,7 +173,29 @@ def del_product(request, pro_id):
     context['order_item'] = order_item
     return render(request, 'mycart.html', context)
 
-def add_to_cart(request, slug):
-    item = get_object_or_404(Product, slug=slug)
-    order_item = Order_Product_objects.create(item=item)
-    order = Order_Product
+# def add_to_cart(request, slug):
+#     item = get_object_or_404(Product, slug=slug)
+#     order_item, created = Order_Item.objects.get_or_create(
+#         item=item,
+#         user=request.user,
+#         ordered=False
+#     )
+#     order_qs = Order.objects.filter(user=request.user, ordered=False)
+#     if order_qs.exists():
+#         order = order_qs[0]
+#         if order.items.filter(item__slug=item.slug).exists():
+#             order_item.quantity += 1
+#             order_item.save()
+#             messages.info(request, "Item qty was updated.")
+#             return redirect("index")
+#         else:
+#             order.items.add(order_item)
+#             messages.info(request, "Item was added to your cart.")
+#             return redirect("index")
+#     else:
+#         ordered_date = timezone.now()
+#         order = Order.objects.create(
+#             user=request.user, ordered_date=ordered_date)
+#         order.items.add(order_item)
+#         messages.info(request, "Item was added to your cart.")
+#     return render(request, 'mycart.html')

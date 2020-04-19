@@ -6,21 +6,22 @@
     Cart
     <div class="container">
     <div class="row">
+    {% for i in productinfo %}
+         <div class="card" style="width: 15rem;">
+        <div >ชื่อสินค้า:{{ i.name }}</div>
 
-    {% for productnum in productinfo %}
-    <div class="card" style="width: 15rem;">
-        <div >ชื่อสินค้า:{{ product_all.name }}</div>
+        <img class="card-img-top" src="{{ i.picture.url }}" width="100" height="180">
 
-        <img class="card-img-top" src="{{ product_all.picture.url }}" width="100" height="180">
-
-        <div>จำนวน:{{ product_all.quanlity }}</div>
+        <div>จำนวน:{{i.quanlity }}</div>
             
-        <div>ราคา:{{ product_all.price }}</div>
+        <div>ราคา:{{ i.price }}</div>
         <form method="GET" action="">
+        {% csrf_token %}
         <button class="btn btn-outline-primary" type="submit" >Delete</button>
         </form>
-     </div>
-     {% endfor %}
+
+    </div>
+      {% endfor %}
     </div>
     </div>
 {% endblock content %}
