@@ -170,17 +170,17 @@
 			      <th scope="col"></th>
 			      <th scope="col"></th>				      	
 			      <!---->
-			      <td scope="col" id="price" value={{ i.price }}>{{ i.price }}</td>
+			      <td scope="col" id="price" name="price" value={{ i.price }}>{{ i.price }}</td>
 			      <td scope="col">
 			      <div class="quantity buttons_added">
-                    <label type="text" name="sum[]" id="sum" value="1">1
+                    <label type="text" name="unit" id="unit" value="1">1
   					<!-- <input id="minus" type="button" class="minus" value="-">
 					<input id="theInput" type="number" size="3" class="input-text qty text" name="quantity" id="quantity" title="quantity" value="1" min="0" step="1">
 					<input id="plus" type="button" class="plus" value="+"> -->
 				  </div>
 				  </td>
 			      <td scope="col">
-                   <label type="text" name="sum[]" id="sum">{{ i.price}}
+                   <label type="text" name="totalprice" id="totalprice">{{ i.price}}
                   </td>
 			      <td scope="col"><a href="#">ลบ</a></td>	      
 			    </tr>
