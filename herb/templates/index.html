@@ -39,7 +39,7 @@
     <a class="btn btn-outline-primary" href="{% url 'editproduct' pro_id=productnum.id %}">แก้ไขสินค้า</a>
     <a href="{% url 'delproduct' pro_id=productnum.id %}">
         <button type="button" class="btn btn-dark" name="dels" id="dels" value="123">ลบสินค้า</button></a>
-        <a class="btn btn-outline-primary" href="{% url 'mycart'%}">ซื้อสินค้า</a>
+        <a class="btn btn-outline-primary" href="{% url 'mycart' pro_id=productnum.id%}">ซื้อสินค้า</a>
   
     {% comment %} <button type="submit" class="btn btn-outline-primary" href="{% url 'mycart' pro_id=userapp %}" >ซื้อสินค้า</button></p><a/> {% endcomment %}
   </div>

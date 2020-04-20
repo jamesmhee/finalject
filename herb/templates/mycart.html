@@ -154,7 +154,8 @@
 			    </tr>
 			  	</thead>		    
 			  	<tbody>
-                {% for i in productinfo %}
+                {% for i in productone %}
+					{% if i.id == productid %}
 			    <tr>
 			      <td scope="row">{{ i.name}}</td>
 			      <!--ส่วนว่่างตาราง-->
@@ -183,8 +184,9 @@
                   </td>
 			      <td scope="col"><a href="#">ลบ</a></td>	      
 			    </tr>
+				{% endif %}
                 {% endfor %}
-		
+
 			  </tbody>
 			</table>
 			<table class="table">

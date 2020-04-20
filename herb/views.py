@@ -176,18 +176,20 @@ def look_product(request, pro_id):
     context = {'producttotal': producttotal}
     return render(request, 'product.html', context)
 
-def my_cart(request):
+def my_cart(request, pro_id):
     context = {}
     cart = []
-    productinfo = Product.objects.all()
+    productone = Product.objects.all()
+    productid = pro_id
     # if request.method == 'POST':
     #     form = AdditemForm(request.POST)
     #     if form.is_valid():
     #         newcart = Order_Item(quanlity = request.POST['quanlity'], buy_by_user = User.objects.get(username=request.user.username))
     #         newcart.save()
     #     return redirect('mycart')
-        
-    context['productinfo'] = productinfo
+    context['productid'] = productid
+    context['productone'] = productone
+    print(productid)
     # context['productall'] = productall
     return render(request, 'mycart.html', context)
 
