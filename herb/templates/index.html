@@ -2,7 +2,7 @@
 {% block content %}
       
     <div class="container-fluid">
-        <form class="form-inline form-control-lg justify-content-center" method="GET" action="{% url 'index' %}">
+        <form class="form-inline form-control-lg justify-content-center" method="POST" >
         {% csrf_token %}
             <div class="form-group">
                 <label for="searchbox">ค้นหาบทความ :</label>
@@ -36,6 +36,9 @@
     <p class="card-text"><strong>{{ productnum.price }}</strong></p>
     <p class="card-text">{{ productnum.quanlity }} จำนวนสินค้า &nbsp;&nbsp;
     <a href="{% url 'product' pro_id=productnum.id %}">ดูรายละเอียดสินค้า</a>
+    <a class="btn btn-outline-primary" href="{% url 'editproduct' pro_id=productnum.id %}">แก้ไขสินค้า</a>
+    <a href="{% url 'delproduct' pro_id=productnum.id %}">
+        <button type="button" class="btn btn-dark" name="dels" id="dels" value="123">ลบสินค้า</button></a>
         <a class="btn btn-outline-primary" href="{% url 'mycart'%}">ซื้อสินค้า</a>
   
     {% comment %} <button type="submit" class="btn btn-outline-primary" href="{% url 'mycart' pro_id=userapp %}" >ซื้อสินค้า</button></p><a/> {% endcomment %}
@@ -43,12 +46,10 @@
   </div>
   </div>
     {% endif %}
-    </form>
-    {% comment %} {% endfor %} {% endcomment %}
   {% endfor %}
+  </form>
    </div>
   </div>
-  </tr>
 {% endblock %}
 {% block footer %}
 {% endblock %}

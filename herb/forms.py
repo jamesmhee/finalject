@@ -9,7 +9,7 @@ class CreateUserForm(UserCreationForm):
         fields = ['username','password1', 'password2', 'first_name', 'last_name','email']
 
 class AddproductForm(forms.Form):
-    name = forms.CharField(max_length=255)
+    name = forms.CharField()
     picture = forms.FileField()
 
 class AdditemForm(forms.Form):

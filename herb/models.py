@@ -32,7 +32,7 @@ class Product(models.Model): # สินค้า
     quanlity = models.IntegerField(default=1)
     price = models.FloatField()
     picture = models.FileField(upload_to='documents/%Y/%m/%d')
-    slug = models.SlugField()
+    # slug = models.SlugField()
 
     def __str__(self):
         return self.name
@@ -63,7 +63,7 @@ class Order_Item(models.Model): #รายการสินค้า
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                             on_delete=models.CASCADE)
-    items = models.ManyToManyField(Order_Item)        
+    items = models.ForeignKey(Order_Item, on_delete=models.CASCADE)        
     ordered = models.BooleanField(default=False)
     start_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     ordered_date = models.DateTimeField()

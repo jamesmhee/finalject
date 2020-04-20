@@ -130,6 +130,22 @@ def create_product(request):
         form = AddproductForm()
     return render(request, "createproduct.html", {'form':form})
 
+@login_required
+@permission_required('product.edit_product')
+def edit_product(request, pro_id):
+    context = {}
+    product_all = Product.objects.get(pk=pro_id)
+    if request.method == 'POST':
+        product_all.name = request.POST['name']
+        product_all.quanlity = request.POST['quanlity']
+        product_all.price = request.POST['price']
+        product_all.save()
+        return redirect('index')
+
+    context['product_all'] = product_all
+
+    return render(request, 'editproduct.html', context)
+
 def edit_profile(request, pro_id):
     context = {}
     my_doc = User.objects.get(pk=pro_id)
@@ -141,6 +157,19 @@ def edit_profile(request, pro_id):
     context['my_doc'] = my_doc
     return render(request, 'editprofile.html', context=context)
 
+@login_required
+@permission_required('product.delete_product')
+def del_product(request, pro_id):
+    context = {}
+    product_all = Product.objects.all()
+    product_del = Product.objects.get(id=pro_id)
+    if request.method == 'POST':
+        product_del = Product.objects.get(id=pro_id)
+        product_del.delete()
+        return redirect('index')
+    context['product_all'] = product_all 
+    context['product_del'] = product_del 
+    return render(request, 'delproduct.html', context)
 
 def look_product(request, pro_id):
     producttotal = Product.objects.get(id=pro_id)
@@ -162,16 +191,6 @@ def my_cart(request):
     # context['productall'] = productall
     return render(request, 'mycart.html', context)
 
-def del_product(request, pro_id):
-    context = {}
-    order_item = Product.objects.get(pk=pro_id)
-    if request.method == 'GET':
-        order_item = Product.objects.get(pk=pro_id)
-        order_item.delete()
-        return redirect('mycart')
-
-    context['order_item'] = order_item
-    return render(request, 'mycart.html', context)
 
 # def add_to_cart(request, slug):
 #     item = get_object_or_404(Product, slug=slug)

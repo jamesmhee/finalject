@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+            <div class="form-group">
+            <label for="formGroupExampleInput2">name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="ชื่อสินค้า" value={{ product_all.name }} >
+            </div>
+            {% comment %} <div class="form-group">
+            <label for="exampleFormControlFile1">Add Image</label>
+            <input type="file" class="form-control-file" id="picture" name="picture">
+            </div> {% endcomment %}
+            <div class="form-group">
+            <label for="formGroupExampleInput2">Quan</label>
+            <input type="text" class="form-control" id="quanlity" name="quanlity" placeholder="จำนวนสินค้า" value={{ product_all.quanlity}}>
+            </div>
+            <div class="form-group">
+            <label for="formGroupExampleInput2">price</label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="ราคาสินค้า" value="{{ product_all.price }}">
+            </div>
+            <button type="Submit" class="btn btn-dark">Submit</button>
+        </form>
+
+{% endblock content %}
