@@ -189,7 +189,6 @@ def my_cart(request, pro_id):
     #     return redirect('mycart')
     context['productid'] = productid
     context['productone'] = productone
-    print(productid)
     # context['productall'] = productall
     return render(request, 'mycart.html', context)
 
@@ -225,3 +224,11 @@ def buy_item(request, pro_id):
     context = {}
 
     return render(request, 'order.html', context)
+
+
+def my_promotion(request):
+    context = {}
+    promotion_all = Promotion.objects.all()
+
+    context['promotion_all'] = promotion_all
+    return render(request, 'promotion.html', context)

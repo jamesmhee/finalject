@@ -34,6 +34,7 @@ urlpatterns = [
     path('mycart/<int:pro_id>', views.my_cart, name='mycart'),
     path('editproduct/<int:pro_id>', views.edit_product, name='editproduct'),
     path('delproduct/<int:pro_id>', views.del_product, name='delproduct'),
+    path('promtion/', views.my_promotion, name='promotion'),
 ]
 
 # urlpatterns += staticfiles_urlpatterns

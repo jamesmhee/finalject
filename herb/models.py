@@ -50,15 +50,15 @@ class Image(models.Model):
 class Order_Item(models.Model): #รายการสินค้า
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    items = models.ForeignKey(Product, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quanlity = models.IntegerField(default=1)
     ordered = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"{self.quantity} of {self.item.name}"
+        return f"{self.quanlity} of {self.item.name}"
 
     def get_total_item_price(self):
-        return self.quantity * self.item.price
+        return self.quanlity * self.item.price
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

@@ -132,7 +132,7 @@
     <div id="section">
 		<center>
 		<div class="container border shadow-sm bg-white rounded-sm pad1 p-2 text-center">
-			<form action="แก้ตรงนี้ด้วย">				
+			<form method="POST" action="" name="form1">				
 			<table class="table table-hover table-borderless ">
   				<thead>
     			<tr class="table-warning h5">
@@ -173,14 +173,15 @@
 			      <td scope="col" id="price" name="price" value={{ i.price }}>{{ i.price }}</td>
 			      <td scope="col">
 			      <div class="quantity buttons_added">
-                    <label type="text" name="unit" id="unit" value="1">1
-  					<!-- <input id="minus" type="button" class="minus" value="-">
+				  <input type="text" id="unit" name="unit" value="1" min="1">
+                    {% comment %} <label type="text" name="unit" id="unit" value="1">1 {% endcomment %}
+  					{% comment %} <input id="minus" type="button" class="minus" value="-">
 					<input id="theInput" type="number" size="3" class="input-text qty text" name="quantity" id="quantity" title="quantity" value="1" min="0" step="1">
-					<input id="plus" type="button" class="plus" value="+"> -->
+					<input id="plus" type="button" class="plus" value="+"> {% endcomment %}
 				  </div>
 				  </td>
 			      <td scope="col">
-                   <label type="text" name="totalprice" id="totalprice">{{ i.price}}
+                   <input type="text" name="totalprice" id="totalprice" value="0">
                   </td>
 			      <td scope="col"><a href="#">ลบ</a></td>	      
 			    </tr>
@@ -191,6 +192,7 @@
 			</table>
 			<table class="table">
 				<br>
+				<input name="btnCal" type="button" value="ดูราคารวมสินค้า" OnClick="JavaScript:fncCal();">
 				<td scope="col"><h4><br>รวมค่าสินค้าทั้งหมด : ตรงนี้ใส่ {} ตัวแปรรวมราคา</h4></td>
 				<td scope="col"><br><button style="float: right;" type="submit" name="order" class="btn btn-warning btn-lg col-md-12" style="margin-right:10px;">ดำเนินการสั่งซื้อสินค้า</button>
 				</td>
@@ -213,10 +215,15 @@
 	document.getElementById('minus').onclick = function(){
 	    input.value = parseInt(input.value, 10) -1
 	}
-    var totalprice = document.getElementById('sum');
-    var quantityjs = document.getElementById('quantity');
-    var pricejs = document.getElementById('price');
-    totalprice = quantity*pricejs
+	function fncCal(){
+	var sum = 0;
+	var tot = 0;
+	var totalprice = document.getElementById('totalptice');
+	var coin = document.getElementById('price')
+		tot = parseInt(eval("document.form1.price.value")* parseInt(eval("document.form.unit.value")))
+		document.form1.totalprice.value=sum;
+	}
+	
 	</script>    
   </body>
 </html>

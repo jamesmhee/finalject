@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <div class="row">
+
+    {% for i in promotion_all %}
+
+        <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+
+            <div>ชื่อโปรโมชั่น : {{ i.name }} </div>
+            <div>ส่วนลด : {{ i.discount }} บาท</div>
+            <div>Status : {{ i.end_promotion }} </div>
+
+        </div>
+        </div>
+        </div>
+
+    {% endfor %}
+
+    </div>
+    </div>
+
+
+{% endblock content %}
