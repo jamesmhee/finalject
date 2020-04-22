@@ -67,10 +67,8 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     start_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
 
-
-    delevery_location = models.TextField(blank=True)
+    delivery_location = models.TextField(blank=True)
     total_price = models.FloatField()
     payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=2)
     # user_id = models.ForeignKey(U, on_delete=models.CASCADE)

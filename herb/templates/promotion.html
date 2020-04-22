@@ -14,6 +14,9 @@
             <div>ส่วนลด : {{ i.discount }} บาท</div>
             <div>Status : {{ i.end_promotion }} </div>
 
+            {% if user.is_authenticated %}
+            <a class="btn btn-outline-primary" href="{% url 'editpromotions' pro_id=i.id%}">แก้ไขโปรโมชั่น</a>
+            {% endif %}
         </div>
         </div>
         </div>

@@ -1,8 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Image, Order_Product, Payment, Product, Promotion, Order_Item
+from django.db.models.fields import TextField
+
+from .models import (Image, Order_Item, Order_Product, Payment, Product,
+                     Promotion)
 from .models import User as U
+
+
 class CreateUserForm(UserCreationForm):
     class Meta():
         model = User
@@ -14,4 +19,12 @@ class AddproductForm(forms.Form):
 
 class AdditemForm(forms.Form):
     quanlity = forms.FloatField()
+    
+
+class AddorderForm(forms.Form):
+    total_price = forms.FloatField()
+    delivery_location = forms.CharField(widget=forms.Textarea)
+
+class AddpromotionsForm(forms.Form):
+    name = forms.CharField()
     

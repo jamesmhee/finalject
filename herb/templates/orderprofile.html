@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>ดูรายการสั่งซื้อ </h1>
+
+    <br><br>
+
+    {% for i in order_all %}
+    <div class="container">
+        <div class="row">
+          ชื่อสินค้า : {{ i.item }}
+          
+        </div>
+
+        <div class="row">
+          ราคาสินค้า : {{ i.total_price }}
+        </div>
+
+        <div class="row">
+            ที่อยู่ในการจัดส่ง : {{ i.delivery_location }}
+        </div>
+
+        <div class="row">
+          วันที่สั่งซื้อ : {{ i.ordered_date }}
+        </div>
+
+        <div class="row">
+          สถานะการจัดส่ง : {{ i.payment_status }}
+        </div>
+
+
+    </div>
+    {% endfor %}
+    
+{% endblock content %}

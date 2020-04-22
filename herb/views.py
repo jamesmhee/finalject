@@ -16,15 +16,16 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.messages.api import success
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
 from django.template.context_processors import request
+from django.utils import timezone
 from pkg_resources import require
 
 from isort.utils import difference
 
-from .forms import AdditemForm, AddproductForm, CreateUserForm
-from .models import (Image, Order_Item, Order_Product, Payment, Product,
-                     Promotion)
+from .forms import (AdditemForm, AddorderForm, AddproductForm,
+                    AddpromotionsForm, CreateUserForm)
+from .models import (
+    Image, Order, Order_Item, Order_Product, Payment, Product, Promotion)
 from .models import User as U
 
 
@@ -181,6 +182,15 @@ def my_cart(request, pro_id):
     cart = []
     productone = Product.objects.all()
     productid = pro_id
+    if request.method == 'POST':
+        form = AddorderForm(request.POST)
+        if form.is_valid():
+            newdoc = Order(user=request.user.id, item = request.POST['unit'],
+             delivery_location = request.POST['location'], total_price = request.POST['totalprice'])
+            newdoc.save()
+            return redirect('order')
+    else:
+        form = AddorderForm()
     # if request.method == 'POST':
     #     form = AdditemForm(request.POST)
     #     if form.is_valid():
@@ -189,6 +199,7 @@ def my_cart(request, pro_id):
     #     return redirect('mycart')
     context['productid'] = productid
     context['productone'] = productone
+    context['form'] = form
     # context['productall'] = productall
     return render(request, 'mycart.html', context)
 
@@ -220,7 +231,7 @@ def my_cart(request, pro_id):
 #         messages.info(request, "Item was added to your cart.")
 #     return render(request, 'mycart.html')
 
-def buy_item(request, pro_id):
+def buy_item(request):
     context = {}
 
     return render(request, 'order.html', context)
@@ -232,3 +243,36 @@ def my_promotion(request):
 
     context['promotion_all'] = promotion_all
     return render(request, 'promotion.html', context)
+
+def order_profile(request, pro_id):
+    context = {}
+    order_all = Order.objects.all()
+
+    context['order_all'] = order_all
+    return render(request, 'orderprofile.html', context)
+
+@login_required
+@permission_required('Order.add_promotions')
+def create_promotions(request):
+    context = {}
+    if request.method == 'POST':
+        form = AddpromotionsForm(request.POST)
+        if form.is_valid():
+            newpro = Promotion(name=request.POST['name'], discount = request.POST['discount'], end_promotion = request.POST['end_promotions'])
+            newpro.save()
+            return redirect('index')
+    return render(request, 'createpromotions.html', context)
+
+
+@login_required
+@permission_required('Order.edit_promotions')
+def edit_promotions(request, pro_id):
+    context = {}
+    my_pro = Promotion.objects.get(pk=pro_id)
+    if request.method == 'POST':
+        my_pro.name = request.POST['name']
+        my_pro.discount = request.POST['discount']
+        my_pro.save()
+        return redirect('promotion')
+    context['my_pro'] = my_pro
+    return render(request, 'editpromotions.html', context)
