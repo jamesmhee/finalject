@@ -187,13 +187,16 @@ def my_cart(request, pro_id):
     context = {}
     productone = Product.objects.all()
     productid = pro_id
+    productless = Product.objects.get(pk=productid)
     if request.method == 'POST':
         form = AddorderForm(request.POST)
         if form.is_valid():
             newdoc = Order(user_id=request.user.id, items = request.POST['unit'],
              delivery_location = request.POST['location'], 
-             total_price = request.POST['totalprice']) 
+             total_price = request.POST['totalprice'])
+            productless.quanlity -= 1
             newdoc.save()
+            productless.save()
             return redirect('index')
     else:
         form = AddorderForm()
@@ -238,12 +241,6 @@ def my_cart(request, pro_id):
 #         messages.info(request, "Item was added to your cart.")
 #     return render(request, 'mycart.html')
 
-def buy_item(request):
-    context = {}
-
-    return render(request, 'order.html', context)
-
-
 def my_promotion(request):
     context = {}
     promotion_all = Promotion.objects.all()
@@ -253,9 +250,15 @@ def my_promotion(request):
 
 def order_profile(request, pro_id):
     context = {}
+    my_product = Product.objects.all()
     order_all = Order.objects.all()
+    number_profile = pro_id
+    my_order = Order.objects.get(pk=pro_id)
 
+
+    context['my_order'] = my_order
     context['order_all'] = order_all
+    context['number_profile'] = number_profile
     return render(request, 'orderprofile.html', context)
 
 @login_required
