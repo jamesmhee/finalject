@@ -191,7 +191,8 @@ def my_cart(request, pro_id):
     if request.method == 'POST':
         form = AddorderForm(request.POST)
         if form.is_valid():
-            newdoc = Order(user_id=request.user.id, items = request.POST['unit'],
+            newdoc = Order(user_id=request.user.id, items = request.POST['unit'], 
+             product_list=request.POST['product_list'],
              delivery_location = request.POST['location'], 
              total_price = request.POST['totalprice'])
             productless.quanlity -= 1

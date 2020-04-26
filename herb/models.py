@@ -67,7 +67,7 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     start_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     ordered_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-    
+    product_list = models.CharField(max_length=255)
     delivery_location = models.TextField(blank=False)
     total_price = models.FloatField()
 
