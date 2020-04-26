@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        <a class="btn btn-warning" href="{% url 'editprofile' pro_id=userapp %}">Myprofile</a>
+        <a class="btn btn-warning" href="{% url 'changepassword'%}">changepassword</a>
+
+{% endblock content %}

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.fields import TextField
 
 from .models import (Image, Order_Item, Order_Product, Payment, Product,
-                     Promotion)
+                     Promotion, Order)
 from .models import User as U
 
 
@@ -22,8 +22,11 @@ class AdditemForm(forms.Form):
     
 
 class AddorderForm(forms.Form):
-    total_price = forms.FloatField()
-    delivery_location = forms.CharField(widget=forms.Textarea)
+    class Meta():
+        model = Order
+    # items = forms.IntegerField() 
+    # total_price = forms.FloatField()
+    # delivery_location = forms.CharField(widget=forms.Textarea)
 
 class AddpromotionsForm(forms.Form):
     name = forms.CharField()

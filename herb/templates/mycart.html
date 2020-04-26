@@ -1,234 +1,31 @@
 {% extends 'base.html' %}
 
+ิ{% block content %}
 
-{% comment %} {% block content %}
+		<h1>ยืนยันการซื้อสินค้า</h1>
+		<br><br>
+	<form method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <div class="form-group">
+		{% for i in productone %}
+		{% if i.id == productid %}
 
-    Cart
-    <div class="container">
-    <div class="row">
-    {% for i in productinfo %}
-         <div class="card" style="width: 15rem;">
-        <div >ชื่อสินค้า:{{ i.name }}</div>
+		<td>{{ i.name}}</td>
+		<td>
+		<input class="form-control" type="number" id="price" name="price" value={{ i.price }} readonly></td>
+		
+		<td>
+		<input class="form-control" type="number" id="unit" name="unit" value="1" readonly></td>
+		
+		<td>
+        <input class="form-control" type="" name="totalprice" id="totalprice" value={{ i.price}} readonly></td>
+		<tr><td><h5><br>กรอกที่อยู่ในการจัดส่ง</h5>
+			<textarea type="text" rows="4" cols="50" name="location" id="location"></textarea></td></tr>
 
-        <img class="card-img-top" src="{{ i.picture.url }}" width="100" height="180">
-
-        <div>จำนวน:{{i.quanlity }}</div>
-            
-        <div>ราคา:{{ i.price }}</div>
-        <form method="GET" action="">
-        {% csrf_token %}
-        <button class="btn btn-outline-primary" type="submit" >Delete</button>
-        </form>
-         <form method="POST" action="">
-        {% csrf_token %}
-        <button class="btn btn-outline-primary" type="submit" >ยืนยันการซื้อ</button>
-        </form>
-    </div>
-      {% endfor %}
-    </div>
-    </div>
-{% endblock content %} {% endcomment %}
-
-ิ {% block content %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>รถเข็น</title>
-  </head>
-  <body>
-  	<style>
-  		.pad1{
-   		 	padding: 1rem;
-    		margin: 1rem -15px 0;
-    		border: solid #f7f7f9;
-    		border-width: .2rem 0 0;
-  		}
-		input[type="number"] {
-		  -webkit-appearance: textfield;
-		    -moz-appearance: textfield;
-		          appearance: textfield;
-		}
-		input[type=number]::-webkit-inner-spin-button, 
-		input[type=number]::-webkit-outer-spin-button { 
-		  -webkit-appearance: none;
-		}
-		.number-input {
-		  margin: 3rem;
-		}
-		.number-input button {
-		  -webkit-appearance: none;
-		  background-color: transparent;
-		  border: none;
-		  align-items: center;
-		  justify-content: center;
-		  cursor: pointer;
-		  margin: 0;
-		  position: relative;
-		}
-		.number-input button:before,
-		.number-input button:after {
-		  display: inline-block;
-		  position: absolute;
-		  content: '';
-		  height: 2px;
-		  transform: translate(-50%, -50%);
-		}
-		.number-input button.plus:after {
-		  transform: translate(-50%, -50%) rotate(90deg);
-		}
-		.number-input input[type=number] {
-		  text-align: center;
-		}
-
-
-		.md-number-input.number-input {
-		  border: 2px solid #ddd;
-		  width: 11.8rem;
-		}
-		.md-number-input.number-input button {
-		  outline: none;
-		  width: 3rem;
-		  height: 2rem;
-		  padding-top: .8rem;
-		}
-		.md-number-input.number-input button.minus {
-		  padding-left: 8px;
-		}
-		.md-number-input.number-input button.plus {
-		  padding-left: 2px;
-		}
-		.md-number-input.number-input button:before,
-		.md-number-input.number-input button:after {
-		  width: 1rem;
-		  background-color: #212121;
-		}
-		.md-number-input.number-input input[type=number] {
-		  max-width: 5rem;
-		  padding: .5rem;
-		  border: solid #ddd;
-		  border-width: 0 2px;
-		  font-size: 2rem;
-		  height: 3rem;
-		  font-weight: bold;
-		  outline: none;
-		}
-		@media not all and (min-resolution:.001dpcm)
-		{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-		  .number-input.md-number-input.safari_only button:before, 
-		  .number-input.md-number-input.safari_only button:after {
-		    margin-top: -.6rem;
-		  }
-		}
-		}
-
-  	</style>
-    <div id="section">
-		<center>
-		<div class="container border shadow-sm bg-white rounded-sm pad1 p-2 text-center">
-			<form method="POST" action="" name="form1">
-			{% csrf_token %}			
-			<table class="table table-hover table-borderless ">
-  				<thead>
-    			<tr class="table-warning h5">
-			      <th scope="col">ชื่อสินค้า</th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>			      			      
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>				      
-			      <th scope="col">ราคาต่อชิ้น</th>
-			      <th scope="col">จำนวน</th>
-			      <th scope="col">ราคารวม</th>
-			      <th scope="col">จัดการ</th>
-			    </tr>
-			  	</thead>		    
-			  	<tbody>
-                {% for i in productone %}
-					{% if i.id == productid %}
-			    <tr>
-			      <td scope="row">{{ i.name}}</td>
-			      <!--ส่วนว่่างตาราง-->
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>
-			      <th scope="col"></th>				      	
-			      <!---->
-			      <td scope="col" id="price" name="price" value={{ i.price }}>{{ i.price }}</td>
-			      <td scope="col">
-			      <div class="quantity buttons_added">
-				  <input type="hidden" id="unit" name="unit" value="1" min="1">1
-                    {% comment %} <label type="text" name="unit" id="unit" value="1">1 {% endcomment %}
-  					{% comment %} <input id="minus" type="button" class="minus" value="-">
-					<input id="theInput" type="number" size="3" class="input-text qty text" name="quantity" id="quantity" title="quantity" value="1" min="0" step="1">
-					<input id="plus" type="button" class="plus" value="+"> {% endcomment %}
-				  </div>
-				  </td>
-			      <td scope="col">
-                   <input type="hidden" name="totalprice" id="totalprice" value={{ i.price}}>{{ i.price }}
-                  </td>
-			      <td scope="col"><a href="#">ลบ</a></td>	      
-			    </tr>
-				{% endif %}
-                {% endfor %}
-
-			  </tbody>
-			</table>
-			<table class="table">
-				<br>
-				{% comment %} <input name="btnCal" type="button" value="ดูราคารวมสินค้า" OnClick="JavaScript:fncCal();"> {% endcomment %}
-				<td scope="col"><h5><br>กรอกที่อยู่ในการจัดส่ง</h5>
-					<textarea type="text" rows="4" cols="50" name="location" id="location"></textarea></td>
-
-				<td scope="col"><br><a><button style="float: right;" type="submit" name="order" class="btn btn-warning btn-lg col-md-12" style="margin-right:10px;">ดำเนินการสั่งซื้อสินค้า</button></a>
-				</td>
-			</table>
-			</form>
-
-    	</center>
-    </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<script>
-	var input = document.getElementById('theInput');
-	document.getElementById('plus').onclick = function(){
-	    input.value = parseInt(input.value, 10) +1
-	}
-	document.getElementById('minus').onclick = function(){
-	    input.value = parseInt(input.value, 10) -1
-	}
-	function fncCal(){
-	var sum = 0;
-	var tot = 0;
-	var totalprice = document.getElementById('totalptice');
-	var coin = document.getElementById('price')
-		tot = parseInt(eval("document.form1.price.value")* parseInt(eval("document.form.unit.value")))
-		document.form1.totalprice.value=sum;
-	}
-	
-	</script>    
-  </body>
-</html>
+		{% endif %}
+		{% endfor %}
+		<button style="float: right;" type="submit" name="order" class="btn btn-warning btn-lg col-md-12" style="margin-right:10px;">ดำเนินการสั่งซื้อสินค้า</button>
+	</div>
+	</form>
 
 {% endblock content %}

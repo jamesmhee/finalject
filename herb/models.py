@@ -63,16 +63,14 @@ class Order_Item(models.Model): #รายการสินค้า
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                             on_delete=models.CASCADE)
-    items = models.ForeignKey(Order_Item, on_delete=models.CASCADE)        
+    items = models.IntegerField()        
     ordered = models.BooleanField(default=False)
     start_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 
-    delivery_location = models.TextField(blank=True)
+    delivery_location = models.TextField(blank=False, null=False)
     total_price = models.FloatField()
-    payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=2)
-    # user_id = models.ForeignKey(U, on_delete=models.CASCADE)
-    promotion_id = models.ForeignKey(Promotion, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.user.username

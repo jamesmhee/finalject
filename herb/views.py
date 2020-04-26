@@ -48,6 +48,12 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+def my_account(request):
+    userapp = request.user.id
+    userappinfo = User.objects.all()
+
+    context = {'userapp':userapp, 'userappinfo': userappinfo}
+    return render(request, 'myaccount.html', context)
 def my_login(request): #หน้าสมัครสมาชิกและล็อกอิน
     if request.user.is_authenticated:
         return redirect('index')
@@ -128,7 +134,7 @@ def create_product(request):
         #     product.save()
             return redirect('index')
     else:
-        form = AddproductForm()
+        form = AddproductForm() 
     return render(request, "createproduct.html", {'form':form})
 
 @login_required
@@ -179,16 +185,16 @@ def look_product(request, pro_id):
 
 def my_cart(request, pro_id):
     context = {}
-    cart = []
     productone = Product.objects.all()
     productid = pro_id
     if request.method == 'POST':
         form = AddorderForm(request.POST)
         if form.is_valid():
-            newdoc = Order(user=request.user.id, item = request.POST['unit'],
-             delivery_location = request.POST['location'], total_price = request.POST['totalprice'])
+            newdoc = Order(user_id=request.user.id, items = request.POST['unit'],
+             delivery_location = request.POST['location'], 
+             total_price = request.POST['totalprice']) 
             newdoc.save()
-            return redirect('order')
+            return redirect('index')
     else:
         form = AddorderForm()
     # if request.method == 'POST':
@@ -197,6 +203,7 @@ def my_cart(request, pro_id):
     #         newcart = Order_Item(quanlity = request.POST['quanlity'], buy_by_user = User.objects.get(username=request.user.username))
     #         newcart.save()
     #     return redirect('mycart')
+
     context['productid'] = productid
     context['productone'] = productone
     context['form'] = form
